@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lublin3D – Modele 3D Lublina</title>
-    <link href="https://unpkg.com" rel="stylesheet">
-    <script type="module" src="https://://googleapis.com"></script>
+    <!-- NAPRAWIONE: Prawidłowo załadowana biblioteka model-viewer z unpkg -->
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
     <style>
         :root {
             --bg: #000000;
@@ -386,7 +386,8 @@
 
         <div class="city-layout">
             <div class="map-box">
-                <iframe src="https://://google.com" style="border:0;" allowfullscreen="" loading="lazy">
+                <!-- NAPRAWIONE: Prawidłowy link osadzania mapy Google dla Lublina zamiast zepsutego google.com -->
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d79860.28186173261!2d22.508544!3d51.246535!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4722572091934449%3A0xc0693a40498b3540!2sLublin!5e0!3m2!1spl!2spl!4v1700000000000!5m2!1spl!2spl" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
                 </iframe>
             </div>
 
