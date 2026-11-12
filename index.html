@@ -60,7 +60,6 @@
             height: 54px;
             width: auto;
             display: block;
-            /* USUNIĘTO BIAŁĄ RAMKĘ (border) */
             border-radius: 10px;
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.85);
             transform: rotate(-4deg);
@@ -302,7 +301,7 @@
             gap: 24px;
         }
         .footer-links a {
-            color: var(--muted);
+           [cite: 1] color: var(--muted);
             text-decoration: none;
             transition: color 0.2s;
             cursor: pointer;
@@ -373,6 +372,25 @@
                 <div class="meta">Format: .GLB &bull; ul. Tomasza Zana 35</div>
                 <p>Model 3D budynku kawiarni Star przy ulicy Tomasza Zana 35 w Lublinie. Gotowy do pobrania i wykorzystania w projektach.</p>
                 <a href="Kawiarnia%20Star%20-%20Tomasza%20Zana%2035.glb" download class="btn-dl">Pobierz model</a>
+            </div>
+
+            <!-- NOWY MODEL: Lubartowska 24C -->
+            <div class="card">
+                <div class="viewer">
+                    <model-viewer 
+                        src="./Lubartowska%2024C.glb" environment-image="neutral" camera-target="auto" 
+                        exposure="1.4" 
+                        shadow-intensity="1"
+                        auto-rotate 
+                        auto-rotate-delay="0"
+                        rotation-per-second="10deg"
+                        camera-controls>
+                    </model-viewer>
+                </div>
+                <h2>Lubartowska 24C</h2>
+                <div class="meta">Format: .GLB &bull; ul. Lubartowska 24C</div>
+                <p>Model 3D budynku przy ulicy Lubartowskiej 24C w Lublinie. Gotowy do pobrania i wykorzystania w projektach.</p>
+                <a href="Lubartowska%2024C.glb" download class="btn-dl">Pobierz model</a>
             </div>
         </div>
     </section>
