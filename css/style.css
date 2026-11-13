@@ -4,7 +4,7 @@
     --subcard: rgba(12, 12, 14, 0.85);
     --border: rgba(255, 255, 255, 0.14);
     --border-h: rgba(255, 255, 255, 0.32);
-    --muted: #8a8f98;
+    --muted: #9A9A9A;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body {
@@ -174,13 +174,13 @@ model-viewer {
     font-size: 1.45rem;
     font-weight: 700;
     margin-bottom: 24px;
+    color: #FFFFFF;
 }
 .section-header .nav-icon {
     width: 22px;
     height: 22px;
-    stroke: #E6E6E6;
+    stroke: #FFFFFF;
     stroke-width: 1.7;
-    opacity: 0.95;
 }
 .city-layout {
     display: grid;
@@ -253,7 +253,7 @@ model-viewer {
 }
 .stat-label {
     font-size: 0.8rem;
-    color: var(--muted);
+    color: #9A9A9A;
 }
 .photos-grid {
     display: grid;
