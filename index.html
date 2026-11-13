@@ -5,315 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lublin3D – Modele 3D Lublina</title>
     <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
-    <style>
-        :root {
-            --bg: #000000;
-            --card: rgba(0, 0, 0, 0.72);
-            --subcard: rgba(12, 12, 14, 0.85);
-            --border: rgba(255, 255, 255, 0.14);
-            --border-h: rgba(255, 255, 255, 0.32);
-            --muted: #8a8f98;
-        }
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body {
-            font-family: 'Inter', sans-serif;
-            background: var(--bg);
-            color: #fff;
-            line-height: 1.5;
-            overflow-x: hidden;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-        #particles {
-            position: fixed;
-            inset: 0;
-            z-index: -1;
-            pointer-events: none;
-        }
-        header {
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            width: 100%;
-            background: rgba(0, 0, 0, 0.65);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-        }
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-            max-width: 1140px;
-            margin: 0 auto;
-            padding: 34px 24px;
-        }
-        .logo {
-            display: flex;
-            align-items: center;
-            text-decoration: none;
-            cursor: pointer;
-        }
-        .logo img {
-            height: 54px;
-            width: auto;
-            display: block;
-            border-radius: 10px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.85);
-            transform: rotate(-4deg);
-            transition: transform 0.25s ease, box-shadow 0.25s ease;
-        }
-        .logo:hover img {
-            transform: rotate(0deg) scale(1.05);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.95);
-        }
-        .nav-pill {
-            display: flex;
-            gap: 6px;
-            background: rgba(18, 18, 20, 0.85);
-            border: 1px solid var(--border);
-            padding: 5px;
-            border-radius: 999px;
-        }
-        .nav-pill a {
-            color: var(--muted);
-            text-decoration: none;
-            font-size: 0.88rem;
-            font-weight: 500;
-            padding: 6px 18px;
-            border-radius: 999px;
-            transition: 0.2s;
-            cursor: pointer;
-        }
-        .nav-pill a:hover, .nav-pill a.active {
-            color: #fff;
-            background: rgba(255, 255, 255, 0.1);
-        }
-        main {
-            width: 100%;
-            max-width: 1140px;
-            margin: 50px auto 80px;
-            padding: 0 24px;
-            flex-grow: 1;
-        }
-        .page-view {
-            display: none;
-            animation: fadeIn 0.25s ease;
-        }
-        .page-view.active-page {
-            display: block;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(6px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .tag {
-            font-size: 0.75rem;
-            font-weight: 600;
-            letter-spacing: 1.5px;
-            color: var(--muted);
-            margin-bottom: 8px;
-            display: block;
-            text-transform: uppercase;
-        }
-        h1 { font-size: 2.75rem; font-weight: 800; margin-bottom: 10px; letter-spacing: -0.5px; }
-        .subtitle { color: var(--muted); font-size: 1.05rem; margin-bottom: 42px; }
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-            gap: 24px;
-        }
-        .card {
-            background: rgba(0, 0, 0, 0.72);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 24px;
-            backdrop-filter: blur(8px);
-            display: flex;
-            flex-direction: column;
-            transition: 0.25s;
-        }
-        .card:hover { border-color: var(--border-h); transform: translateY(-2px); }
-        .viewer {
-            width: 100%;
-            height: 320px;
-            background: radial-gradient(circle at center, #26272e 0%, #000000 100%);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            margin-bottom: 20px;
-            overflow: hidden;
-            position: relative;
-        }
-        model-viewer {
-            width: 100%;
-            height: 100%;
-            display: block;
-            --poster-color: transparent;
-        }
-        .card h2 { font-size: 1.35rem; margin-bottom: 6px; }
-        .meta { font-size: 0.85rem; color: var(--muted); margin-bottom: 14px; }
-        .card p { font-size: 0.92rem; color: #b4b8c0; margin-bottom: 24px; flex-grow: 1; }
-        .btn-dl {
-            display: block;
-            width: 100%;
-            padding: 12px;
-            background: #fff;
-            color: #000000;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.92rem;
-            border-radius: 8px;
-            text-align: center;
-            transition: 0.2s;
-        }
-        .btn-dl:hover { background: #e2e4e8; }
-
-        .section-header {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1.45rem;
-            font-weight: 700;
-            margin-bottom: 24px;
-        }
-        .section-header img {
-            width: 22px;
-            height: 22px;
-            object-fit: contain;
-        }
-        .city-layout {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 24px;
-            margin-bottom: 24px;
-        }
-        .map-box {
-            border-radius: 16px;
-            overflow: hidden;
-            border: 1px solid var(--border);
-            min-height: 430px;
-            background: #000000;
-        }
-        .map-box iframe {
-            width: 100%;
-            height: 100%;
-            border: 0;
-            display: block;
-        }
-        .city-card {
-            background: rgba(0, 0, 0, 0.72);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 32px;
-            backdrop-filter: blur(6px);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-        .city-card h2 {
-            font-size: 1.55rem;
-            font-weight: 700;
-            margin-bottom: 16px;
-            color: #ffffff;
-        }
-        .city-card p {
-            font-size: 0.94rem;
-            color: #a1a6b0;
-            line-height: 1.65;
-            margin-bottom: 28px;
-        }
-        .stats-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 14px;
-        }
-        .stat-box {
-            background: rgba(0, 0, 0, 0.78);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            border-radius: 14px;
-            padding: 18px 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-        }
-        .stat-box img {
-            width: 20px;
-            height: 20px;
-            object-fit: contain;
-            margin-bottom: 14px;
-            opacity: 0.85;
-        }
-        .stat-value {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: #ffffff;
-            margin-bottom: 3px;
-            letter-spacing: -0.3px;
-        }
-        .stat-label {
-            font-size: 0.8rem;
-            color: var(--muted);
-        }
-        .photos-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 16px;
-        }
-        .photo-item {
-            aspect-ratio: 4 / 3;
-            border-radius: 12px;
-            overflow: hidden;
-            border: 1px solid var(--border);
-            background: #000000;
-        }
-        .photo-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-            transition: transform 0.3s ease;
-        }
-        .photo-item:hover img {
-            transform: scale(1.04);
-        }
-        footer {
-            border-top: 1px solid var(--border);
-            padding: 28px 24px;
-            width: 100%;
-            background: #000000;
-        }
-        .footer-inner {
-            max-width: 1140px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.9rem;
-        }
-        .footer-brand {
-            font-weight: 700;
-            color: #fff;
-        }
-        .footer-links {
-            display: flex;
-            gap: 24px;
-        }
-        .footer-links a {
-            color: var(--muted);
-            text-decoration: none;
-            transition: color 0.2s;
-            cursor: pointer;
-        }
-        .footer-links a:hover {
-            color: #fff;
-        }
-        @media (max-width: 860px) {
-            .city-layout { grid-template-columns: 1fr; }
-            .photos-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-    </style>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
@@ -322,7 +14,7 @@
 <header>
     <nav>
         <a href="#Modele3D" onclick="openPage('Modele3D'); return false;" class="logo">
-            <img src="logo.png" alt="Lublin 3D">
+            <img src="image/logo.png" alt="Lublin 3D">
         </a>
         <div class="nav-pill">
             <a href="#Modele3D" data-tab="Modele3D" onclick="openPage('Modele3D'); return false;" class="active">Modele 3D</a>
@@ -337,7 +29,6 @@
         <h1>Modele 3D Lublina</h1>
         <p class="subtitle">Obracaj obiekty w przeglądarce i pobieraj gotowe pliki do swoich projektów.</p>
 
-        <!-- Automatycznie generowana siatka modeli z GitHub API -->
         <div class="grid" id="dynamic-models-grid">
             <p style="color: var(--muted);">Ładowanie modeli 3D...</p>
         </div>
@@ -345,7 +36,7 @@
 
     <section id="info" class="page-view">
         <div class="section-header">
-            <img src="pinezka.png" alt="Lokalizacja">
+            <img src="image/pinezka.png" alt="Lokalizacja">
             <span>O mieście</span>
         </div>
 
@@ -363,22 +54,22 @@
 
                 <div class="stats-grid">
                     <div class="stat-box">
-                        <img src="Ludzie.png" alt="Mieszkańcy">
+                        <img src="image/Ludzie.png" alt="Mieszkańcy">
                         <div class="stat-value">326 685</div>
                         <div class="stat-label">mieszkańców (koniec 2025)</div>
                     </div>
                     <div class="stat-box">
-                        <img src="mapka.png" alt="Powierzchnia">
+                        <img src="image/mapka.png" alt="Powierzchnia">
                         <div class="stat-value">147,5 km²</div>
                         <div class="stat-label">powierzchnia</div>
                     </div>
                     <div class="stat-box">
-                        <img src="miejskie.png" alt="Prawa miejskie">
+                        <img src="image/miejskie.png" alt="Prawa miejskie">
                         <div class="stat-value">1317</div>
                         <div class="stat-label">prawa miejskie</div>
                     </div>
                     <div class="stat-box">
-                        <img src="pinezka.png" alt="Województwo">
+                        <img src="image/pinezka.png" alt="Województwo">
                         <div class="stat-value">lubelskie</div>
                         <div class="stat-label">województwo</div>
                     </div>
@@ -387,10 +78,10 @@
         </div>
 
         <div class="photos-grid">
-            <div class="photo-item"><img src="Lub1.png" alt="Lublin 1"></div>
-            <div class="photo-item"><img src="Lub2.png" alt="Lublin 2"></div>
-            <div class="photo-item"><img src="Lub3.png" alt="Lublin 3"></div>
-            <div class="photo-item"><img src="Lub4.png" alt="Lublin 4"></div>
+            <div class="photo-item"><img src="image/Lub1.png" alt="Lublin 1"></div>
+            <div class="photo-item"><img src="image/Lub2.png" alt="Lublin 2"></div>
+            <div class="photo-item"><img src="image/Lub3.png" alt="Lublin 3"></div>
+            <div class="photo-item"><img src="image/Lub4.png" alt="Lublin 4"></div>
         </div>
     </section>
 </main>
@@ -405,177 +96,6 @@
     </div>
 </footer>
 
-<script>
-function openPage(pageId) {
-    const activeId = (pageId.toLowerCase() === 'info') ? 'info' : 'Modele3D';
-
-    document.querySelectorAll('.page-view').forEach(sec => {
-        sec.classList.toggle('active-page', sec.id === activeId);
-    });
-
-    document.querySelectorAll('.nav-pill a').forEach(link => {
-        link.classList.toggle('active', link.dataset.tab === activeId);
-    });
-
-    history.replaceState(null, '', '#' + activeId);
-    window.scrollTo({ top: 0, behavior: 'instant' });
-}
-
-window.addEventListener('hashchange', () => {
-    openPage(window.location.hash.replace('#', ''));
-});
-
-// Automatyczne pobieranie listy plików GLB z repozytorium lublin3d/Lublin3D
-window.addEventListener('DOMContentLoaded', () => {
-    openPage(window.location.hash.replace('#', ''));
-
-    const repoOwner = 'lublin3d'; 
-    const repoName = 'Lublin3D';
-
-    // Słownik dla starszych modeli z zachowanymi oryginalnymi opisami
-    const customModels = {
-        "Portal": {
-            name: "Portal Lublin–Wilno",
-            street: "Plac Litewski",
-            description: "Interaktywna instalacja łącząca na żywo Lublin z Wilnem. Model 3D gotowy do pobrania i użycia w projektach."
-        },
-        "Kawiarnia Star - Tomasza Zana 35": {
-            name: "Kawiarnia Star",
-            street: "ul. Tomasza Zana 35",
-            description: "Model 3D budynku kawiarni Star przy ulicy Tomasza Zana 35 w Lublinie. Gotowy do pobrania i wykorzystania w projektach."
-        },
-        "Lubartowska 24C": {
-            name: "Lubartowska 24C",
-            street: "ul. Lubartowska 24C",
-            description: "Model 3D budynku przy ulicy Lubartowskiej 24C w Lublinie. Gotowy do pobrania i wykorzystania w projektach."
-        }
-    };
-
-    fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/contents`)
-        .then(response => response.json())
-        .then(data => {
-            const grid = document.getElementById('dynamic-models-grid');
-            grid.innerHTML = ''; 
-
-            if (!Array.isArray(data)) {
-                grid.innerHTML = '<p style="color: var(--muted);">Nie udało się pobrać listy modeli.</p>';
-                return;
-            }
-
-            const glbFiles = data.filter(file => file.name.toLowerCase().endsWith('.glb'));
-
-            if (glbFiles.length === 0) {
-                grid.innerHTML = '<p style="color: var(--muted);">Brak modeli 3D w repozytorium.</p>';
-                return;
-            }
-
-            glbFiles.forEach(file => {
-                const fileName = file.name;
-                const rawName = decodeURIComponent(fileName.replace(/\.[^/.]+$/, ""));
-                
-                let name, description, street;
-
-                if (customModels[rawName]) {
-                    name = customModels[rawName].name;
-                    description = customModels[rawName].description;
-                    street = customModels[rawName].street;
-                } else {
-                    const parts = rawName.split('-');
-                    if (parts.length >= 3) {
-                        name = parts[0].trim();
-                        description = parts[1].trim();
-                        street = parts[2].trim();
-                    } else {
-                        name = rawName;
-                        description = "Interaktywny model 3D obiektu z Lublina. Gotowy do pobrania i użycia w projektach.";
-                        street = "Lublin";
-                    }
-                }
-
-                const formattedLocation = (street === 'Lublin' || street.startsWith('ul.') || street.startsWith('Plac')) 
-                    ? street 
-                    : 'ul. ' + street;
-
-                const card = document.createElement('div');
-                card.className = 'card';
-                card.innerHTML = `
-                    <div class="viewer">
-                        <model-viewer 
-                            src="./${fileName}" environment-image="neutral" camera-target="auto" 
-                            exposure="1.4" 
-                            shadow-intensity="1"
-                            auto-rotate 
-                            auto-rotate-delay="0"
-                            rotation-per-second="6deg"
-                            camera-controls>
-                        </model-viewer>
-                    </div>
-                    <h2>${name}</h2>
-                    <div class="meta">Format: .GLB &bull; ${formattedLocation}</div>
-                    <p>${description}</p>
-                    <a href="${fileName}" download class="btn-dl">Pobierz model</a>
-                `;
-                grid.appendChild(card);
-            });
-
-            // Przyspieszenie obrotu TYLKO po najechaniu myszką na okienko podglądu (.viewer)
-            document.querySelectorAll('.card').forEach(card => {
-                const viewer = card.querySelector('model-viewer');
-                const viewerContainer = card.querySelector('.viewer');
-                if (viewer && viewerContainer) {
-                    viewerContainer.addEventListener('mouseenter', () => {
-                        viewer.setAttribute('rotation-per-second', '25deg');
-                    });
-                    viewerContainer.addEventListener('mouseleave', () => {
-                        viewer.setAttribute('rotation-per-second', '6deg');
-                    });
-                }
-            });
-        })
-        .catch(error => {
-            console.error('Błąd pobierania modeli:', error);
-            document.getElementById('dynamic-models-grid').innerHTML = '<p style="color: var(--muted);">Błąd połączenia z API GitHub.</p>';
-        });
-});
-
-// Obsługa animacji cząsteczek w tle
-const c = document.getElementById('particles'), ctx = c.getContext('2d');
-let pts = [], m = { x: null, y: null, r: 130 };
-function res() { c.width = innerWidth; c.height = innerHeight; }
-addEventListener('resize', res); res();
-addEventListener('mousemove', e => { m.x = e.clientX; m.y = e.clientY; });
-addEventListener('mouseout', () => { m.x = null; m.y = null; });
-
-for (let i = 0; i < 90; i++) {
-    pts.push({
-        x: Math.random() * c.width, y: Math.random() * c.height,
-        bx: Math.random() * c.width, by: Math.random() * c.height,
-        vx: (Math.random() - 0.5) * 0.4, vy: (Math.random() - 0.5) * 0.4,
-        s: Math.random() * 2 + 0.8, o: Math.random() * 0.4 + 0.15
-    });
-}
-
-function loop() {
-    ctx.clearRect(0, 0, c.width, c.height);
-    for (let p of pts) {
-        p.bx += p.vx; p.by += p.vy;
-        if (p.bx < 0 || p.bx > c.width) p.vx *= -1;
-        if (p.by < 0 || p.by > c.height) p.vy *= -1;
-        let dx = m.x - p.x, dy = m.y - p.y, d = Math.hypot(dx, dy);
-        if (m.x !== null && d < m.r) {
-            let f = (m.r - d) / m.r;
-            p.x -= (dx / d) * f * 3;
-            p.y -= (dy / d) * f * 3;
-        } else {
-            p.x += (p.bx - p.x) * 0.05;
-            p.y += (p.by - p.y) * 0.05;
-        }
-        ctx.fillStyle = `rgba(255,255,255,${p.o})`;
-        ctx.beginPath(); ctx.arc(p.x, p.y, p.s, 0, 6.28); ctx.fill();
-    }
-    requestAnimationFrame(loop);
-}
-loop();
-</script>
+<script src="js/index.js"></script>
 </body>
 </html>
