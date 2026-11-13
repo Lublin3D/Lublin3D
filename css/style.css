@@ -179,6 +179,7 @@ model-viewer {
 .section-header .nav-icon {
     width: 22px;
     height: 22px;
+    color: #FFFFFF;
     stroke: #FFFFFF;
     stroke-width: 1.7;
 }
@@ -240,6 +241,7 @@ model-viewer {
 .stat-box .stat-icon {
     width: 20px;
     height: 20px;
+    color: #9A9A9A;
     stroke: #9A9A9A;
     stroke-width: 1.7;
     margin-bottom: 14px;
