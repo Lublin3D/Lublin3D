@@ -16,14 +16,12 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    user-select: text;
 }
-/* Blokada zaznaczania na niebiesko dla ikonek wektorowych */
 svg.stat-icon, svg.nav-icon {
     user-select: none;
     -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
+    pointer-events: none;
+    flex-shrink: 0;
 }
 #particles {
     position: fixed;
@@ -181,6 +179,7 @@ model-viewer {
     width: 22px;
     height: 22px;
     stroke: #fff;
+    stroke-width: 1.7;
     opacity: 0.9;
 }
 .city-layout {
@@ -242,6 +241,7 @@ model-viewer {
     width: 20px;
     height: 20px;
     stroke: var(--muted);
+    stroke-width: 1.7;
     margin-bottom: 14px;
     opacity: 0.85;
 }
