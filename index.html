@@ -301,7 +301,7 @@
             gap: 24px;
         }
         .footer-links a {
-           [cite: 1] color: var(--muted);
+            color: var(--muted);
             text-decoration: none;
             transition: color 0.2s;
             cursor: pointer;
@@ -337,61 +337,9 @@
         <h1>Modele 3D Lublina</h1>
         <p class="subtitle">Obracaj obiekty w przeglądarce i pobieraj gotowe pliki do swoich projektów.</p>
 
-        <div class="grid">
-            <div class="card">
-                <div class="viewer">
-                    <model-viewer 
-                        src="./Portal.glb" environment-image="neutral" camera-target="auto" 
-                        exposure="1.4" 
-                        shadow-intensity="1"
-                        auto-rotate 
-                        auto-rotate-delay="0"
-                        rotation-per-second="10deg"
-                        camera-controls>
-                    </model-viewer>
-                </div>
-                <h2>Portal Lublin–Wilno</h2>
-                <div class="meta">Format: .GLB &bull; Plac Litewski</div>
-                <p>Interaktywna instalacja łącząca na żywo Lublin z Wilnem. Model 3D gotowy do pobrania i użycia w projektach.</p>
-                <a href="Portal.glb" download class="btn-dl">Pobierz model</a>
-            </div>
-
-            <div class="card">
-                <div class="viewer">
-                    <model-viewer 
-                        src="./Kawiarnia%20Star%20-%20Tomasza%20Zana%2035.glb" environment-image="neutral" camera-target="auto" 
-                        exposure="1.4" 
-                        shadow-intensity="1"
-                        auto-rotate 
-                        auto-rotate-delay="0"
-                        rotation-per-second="10deg"
-                        camera-controls>
-                    </model-viewer>
-                </div>
-                <h2>Kawiarnia Star</h2>
-                <div class="meta">Format: .GLB &bull; ul. Tomasza Zana 35</div>
-                <p>Model 3D budynku kawiarni Star przy ulicy Tomasza Zana 35 w Lublinie. Gotowy do pobrania i wykorzystania w projektach.</p>
-                <a href="Kawiarnia%20Star%20-%20Tomasza%20Zana%2035.glb" download class="btn-dl">Pobierz model</a>
-            </div>
-
-            <!-- NOWY MODEL: Lubartowska 24C -->
-            <div class="card">
-                <div class="viewer">
-                    <model-viewer 
-                        src="./Lubartowska%2024C.glb" environment-image="neutral" camera-target="auto" 
-                        exposure="1.4" 
-                        shadow-intensity="1"
-                        auto-rotate 
-                        auto-rotate-delay="0"
-                        rotation-per-second="10deg"
-                        camera-controls>
-                    </model-viewer>
-                </div>
-                <h2>Lubartowska 24C</h2>
-                <div class="meta">Format: .GLB &bull; ul. Lubartowska 24C</div>
-                <p>Model 3D budynku przy ulicy Lubartowskiej 24C w Lublinie. Gotowy do pobrania i wykorzystania w projektach.</p>
-                <a href="Lubartowska%2024C.glb" download class="btn-dl">Pobierz model</a>
-            </div>
+        <!-- Automatycznie generowana siatka modeli z GitHub API -->
+        <div class="grid" id="dynamic-models-grid">
+            <p style="color: var(--muted);">Ładowanie modeli 3D...</p>
         </div>
     </section>
 
@@ -477,22 +425,120 @@ window.addEventListener('hashchange', () => {
     openPage(window.location.hash.replace('#', ''));
 });
 
+// Automatyczne pobieranie listy plików GLB z repozytorium lublin3d/Lublin3D
 window.addEventListener('DOMContentLoaded', () => {
     openPage(window.location.hash.replace('#', ''));
+
+    const repoOwner = 'lublin3d'; 
+    const repoName = 'Lublin3D';
+
+    // Słownik dla starszych modeli z zachowanymi oryginalnymi opisami
+    const customModels = {
+        "Portal": {
+            name: "Portal Lublin–Wilno",
+            street: "Plac Litewski",
+            description: "Interaktywna instalacja łącząca na żywo Lublin z Wilnem. Model 3D gotowy do pobrania i użycia w projektach."
+        },
+        "Kawiarnia Star - Tomasza Zana 35": {
+            name: "Kawiarnia Star",
+            street: "ul. Tomasza Zana 35",
+            description: "Model 3D budynku kawiarni Star przy ulicy Tomasza Zana 35 w Lublinie. Gotowy do pobrania i wykorzystania w projektach."
+        },
+        "Lubartowska 24C": {
+            name: "Lubartowska 24C",
+            street: "ul. Lubartowska 24C",
+            description: "Model 3D budynku przy ulicy Lubartowskiej 24C w Lublinie. Gotowy do pobrania i wykorzystania w projektach."
+        }
+    };
+
+    fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/contents`)
+        .then(response => response.json())
+        .then(data => {
+            const grid = document.getElementById('dynamic-models-grid');
+            grid.innerHTML = ''; 
+
+            if (!Array.isArray(data)) {
+                grid.innerHTML = '<p style="color: var(--muted);">Nie udało się pobrać listy modeli.</p>';
+                return;
+            }
+
+            const glbFiles = data.filter(file => file.name.toLowerCase().endsWith('.glb'));
+
+            if (glbFiles.length === 0) {
+                grid.innerHTML = '<p style="color: var(--muted);">Brak modeli 3D w repozytorium.</p>';
+                return;
+            }
+
+            glbFiles.forEach(file => {
+                const fileName = file.name;
+                const rawName = decodeURIComponent(fileName.replace(/\.[^/.]+$/, ""));
+                
+                let name, description, street;
+
+                if (customModels[rawName]) {
+                    name = customModels[rawName].name;
+                    description = customModels[rawName].description;
+                    street = customModels[rawName].street;
+                } else {
+                    const parts = rawName.split('-');
+                    if (parts.length >= 3) {
+                        name = parts[0].trim();
+                        description = parts[1].trim();
+                        street = parts[2].trim();
+                    } else {
+                        name = rawName;
+                        description = "Interaktywny model 3D obiektu z Lublina. Gotowy do pobrania i użycia w projektach.";
+                        street = "Lublin";
+                    }
+                }
+
+                const formattedLocation = (street === 'Lublin' || street.startsWith('ul.') || street.startsWith('Plac')) 
+                    ? street 
+                    : 'ul. ' + street;
+
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `
+                    <div class="viewer">
+                        <model-viewer 
+                            src="./${fileName}" environment-image="neutral" camera-target="auto" 
+                            exposure="1.4" 
+                            shadow-intensity="1"
+                            auto-rotate 
+                            auto-rotate-delay="0"
+                            rotation-per-second="6deg"
+                            camera-controls>
+                        </model-viewer>
+                    </div>
+                    <h2>${name}</h2>
+                    <div class="meta">Format: .GLB &bull; ${formattedLocation}</div>
+                    <p>${description}</p>
+                    <a href="${fileName}" download class="btn-dl">Pobierz model</a>
+                `;
+                grid.appendChild(card);
+            });
+
+            // Przyspieszenie obrotu TYLKO po najechaniu myszką na okienko podglądu (.viewer)
+            document.querySelectorAll('.card').forEach(card => {
+                const viewer = card.querySelector('model-viewer');
+                const viewerContainer = card.querySelector('.viewer');
+                if (viewer && viewerContainer) {
+                    viewerContainer.addEventListener('mouseenter', () => {
+                        viewer.setAttribute('rotation-per-second', '25deg');
+                    });
+                    viewerContainer.addEventListener('mouseleave', () => {
+                        viewer.setAttribute('rotation-per-second', '6deg');
+                    });
+                }
+            });
+        })
+        .catch(error => {
+            console.error('Błąd pobierania modeli:', error);
+            document.getElementById('dynamic-models-grid').innerHTML = '<p style="color: var(--muted);">Błąd połączenia z API GitHub.</p>';
+        });
 });
 
-document.querySelectorAll('.card').forEach(card => {
-    const viewer = card.querySelector('model-viewer');
-    if (viewer) {
-        card.addEventListener('mouseenter', () => {
-            viewer.setAttribute('rotation-per-second', '55deg');
-        });
-        card.addEventListener('mouseleave', () => {
-            viewer.setAttribute('rotation-per-second', '10deg');
-        });
-    }
-});
-
+// Obsługa animacji cząsteczek w tle
 const c = document.getElementById('particles'), ctx = c.getContext('2d');
 let pts = [], m = { x: null, y: null, r: 130 };
 function res() { c.width = innerWidth; c.height = innerHeight; }
