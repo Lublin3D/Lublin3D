@@ -5,79 +5,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lublin Modele 3D – Interaktywna baza obiektów 3D</title>
     <meta name="description" content="Oglądaj i pobieraj interaktywne modele 3D budynków i obiektów z Lublina w formacie GLB.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-
 <canvas id="particles"></canvas>
-
 <header>
     <nav>
-        <a href="#Modele3D" onclick="openPage('Modele3D'); return false;" class="logo">
-            <img src="image/logo.png" alt="Lublin 3D">
-        </a>
+        <a href="#Modele3D" onclick="openPage('Modele3D'); return false;" class="logo"><img src="image/logo.png" alt="Lublin 3D"></a>
         <div class="nav-pill">
             <a href="#Modele3D" data-tab="Modele3D" onclick="openPage('Modele3D'); return false;" class="active">Modele 3D</a>
             <a href="#info" data-tab="info" onclick="openPage('info'); return false;">Info</a>
         </div>
     </nav>
 </header>
-
 <main>
     <section id="Modele3D" class="page-view active-page">
         <span class="tag">MODELE</span>
         <h1>Modele 3D Lublina</h1>
         <p class="subtitle">Obracaj obiekty w przeglądarce i pobieraj gotowe pliki do swoich projektów.</p>
-
-        <div class="grid" id="dynamic-models-grid">
-            <p style="color: var(--muted);">Ładowanie modeli 3D...</p>
-        </div>
+        <div class="grid" id="dynamic-models-grid"><p style="color: var(--muted);">Ładowanie modeli 3D...</p></div>
     </section>
-
     <section id="info" class="page-view">
         <div class="section-header">
-            <img src="image/pinezka.png" alt="Lokalizacja">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
             <span>O mieście</span>
         </div>
-
         <div class="city-layout">
-            <div class="map-box">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d79860.28186173261!2d22.508544!3d51.246535!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4722572091934449%3A0xc0693a40498b3540!2sLublin!5e0!3m2!1spl!2spl!4v1700000000000!5m2!1spl!2spl" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-                </iframe>
-            </div>
-
+            <div class="map-box"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d79860.28186173261!2d22.508544!3d51.246535!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4722572091934449%3A0xc0693a40498b3540!2sLublin!5e0!3m2!1spl!2spl!4v1700000000000!5m2!1spl!2spl" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
             <div class="city-card">
-                <div>
-                    <h2>Lublin</h2>
-                    <p>Lublin to największe miasto we wschodniej Polsce i stolica województwa lubelskiego. Położony nad Bystrzycą, słynie z malowniczego Starego Miasta, Zamku Lubelskiego z Kaplicą Trójcy Świętej oraz Bramy Krakowskiej. To ważny ośrodek akademicki z kilkoma uczelniami i dziesiątkami tysięcy studentów. Lublin ma jedną z największych sieci trolejbusowych w Polsce, a komunikację miejską obsługuje ZTM Lublin.</p>
-                </div>
-
+                <div><h2>Lublin</h2><p>Lublin to największe miasto we wschodniej Polsce i stolica województwa lubelskiego. Położony nad Bystrzycą, słynie z malowniczego Starego Miasta, Zamku Lubelskiego z Kaplicą Trójcy Świętej oraz Bramy Krakowskiej. To ważny ośrodek akademicki z kilkoma uczelniami i dziesiątkami tysięcy studentów. Lublin ma jedną z największych sieci trolejbusowych w Polsce, a komunikację miejską obsługuje ZTM Lublin.</p></div>
                 <div class="stats-grid">
-                    <div class="stat-box">
-                        <img src="image/Ludzie.png" alt="Mieszkańcy">
-                        <div class="stat-value">326 685</div>
-                        <div class="stat-label">mieszkańców (koniec 2025)</div>
-                    </div>
-                    <div class="stat-box">
-                        <img src="image/mapka.png" alt="Powierzchnia">
-                        <div class="stat-value">147,5 km²</div>
-                        <div class="stat-label">powierzchnia</div>
-                    </div>
-                    <div class="stat-box">
-                        <img src="image/miejskie.png" alt="Prawa miejskie">
-                        <div class="stat-value">1317</div>
-                        <div class="stat-label">prawa miejskie</div>
-                    </div>
-                    <div class="stat-box">
-                        <img src="image/pinezka.png" alt="Województwo">
-                        <div class="stat-value">lubelskie</div>
-                        <div class="stat-label">województwo</div>
-                    </div>
+                    <div class="stat-box"><svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg><div class="stat-value">326 685</div><div class="stat-label">mieszkańców (koniec 2025)</div></div>
+                    <div class="stat-box"><svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon><line x1="8" y1="2" x2="8" y2="18"></line><line x1="16" y1="6" x2="16" y2="22"></line></svg><div class="stat-value">147,5 km²</div><div class="stat-label">powierzchnia</div></div>
+                    <div class="stat-box"><svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg><div class="stat-value">1317</div><div class="stat-label">prawa miejskie</div></div>
+                    <div class="stat-box"><svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg><div class="stat-value">lubelskie</div><div class="stat-label">województwo</div></div>
                 </div>
             </div>
         </div>
-
         <div class="photos-grid">
             <div class="photo-item"><img src="image/Lub1.png" alt="Lublin 1"></div>
             <div class="photo-item"><img src="image/Lub2.png" alt="Lublin 2"></div>
@@ -86,17 +52,7 @@
         </div>
     </section>
 </main>
-
-<footer>
-    <div class="footer-inner">
-        <span class="footer-brand">Lublin 3D 2026</span>
-        <div class="footer-links">
-            <a href="#Modele3D" onclick="openPage('Modele3D'); return false;">Modele 3D</a>
-            <a href="#info" onclick="openPage('info'); return false;">Info</a>
-        </div>
-    </div>
-</footer>
-
+<footer><div class="footer-inner"><span class="footer-brand">Lublin 3D 2026</span><div class="footer-links"><a href="#Modele3D" onclick="openPage('Modele3D'); return false;">Modele 3D</a><a href="#info" onclick="openPage('info'); return false;">Info</a></div></div></footer>
 <script src="js/index.js"></script>
 </body>
 </html>
